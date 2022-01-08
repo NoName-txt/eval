@@ -40,15 +40,15 @@ function nameArray(data){
 }
 
 function log(message,color){
-    if(!message) throw new Error("\x1b[35mYazı Giriniz!\x1b[0m");
-    if(!nameArray(colors).includes(color)) throw new Error("\x1b[35mBöyle Bir Renk Bende Yok!\x1b[0m");
+    if(!message) throw new Error("\x1b[35mWrite Text!\x1b[0m");
+    if(!nameArray(colors).includes(color)) throw new Error("\x1b[35mColor Error!\x1b[0m");
     
     let clr = lowerName(colors);
     console.log(`${clr[color.toLowerCase()]}%s\x1b[0m`,message)
 }
 
 function betterLog(message){
-    if(!message) throw new Error("\x1b[35mYazı Giriniz!\x1b[0m");
+    if(!message) throw new Error("\x1b[35mWrite Text!\x1b[0m");
 
     var nameClr = nameArray(colors);
     var lowerClr = lowerName(colors);
