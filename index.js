@@ -21,7 +21,6 @@ client.owner = "OWNER ID";
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
-
 client.on("messageCreate", async (message) =>{
   let access = db.get("access");
   let channel = db.get("channel");
@@ -40,11 +39,11 @@ client.on("messageCreate", async (message) =>{
   try {
       console.log = function(value)
       {
-        return value;
+          return value;
       };
-      var evaled = eval(content);
+      var evaled = await eval(content);
       if (typeof evaled !== "string") evaled = require("util").inspect(evaled);
-      if(evaled.includes(token.slice(0,5) || token)) return message.channel.send({content:`\`Error\` \`\`\`xl\nToken Alert\n\`\`\``})
+      if(evaled.includes(token.slice(0,5)) || evaled.includes(token)) evaled = `\nToken Alert`;
 
           let embed = new Discord.MessageEmbed().addFields({ name: '**Output: 1**', value: `\`\`\`js\n${evaled.substring(0,1000)}\`\`\``, inline: false })
 
@@ -60,9 +59,8 @@ client.on("messageCreate", async (message) =>{
             collector.on('collect', async i => {
               if (i.user.id === message.author.id && i.customId == "deleted_"+rndm) {
                 i.deferUpdate();
-                msga.delete();
-                let m = await message.channel.messages.fetch(message.id);
-                if(m) message.delete();
+                  msga.delete().catch(a => {});
+                  message.delete().catch(a => {});
               }
               if (i.user.id === message.author.id && i.customId == "backward_"+rndm) {
                 i.deferUpdate();
@@ -70,7 +68,7 @@ client.on("messageCreate", async (message) =>{
                 page = page-1;
                 let emb = new Discord.MessageEmbed().addFields({ name: '**Output: **'+ (page+1), value: `\`\`\`js\n${evaled.substring(page*1000,(page+1)*1000)}\`\`\``, inline: false })
                   
-                msga.edit({embeds:[emb]})
+                msga.edit({embeds:[emb]}).catch(a => {});
               }
               if (i.user.id === message.author.id && i.customId == "forward_"+rndm) {
                 i.deferUpdate();
@@ -78,23 +76,18 @@ client.on("messageCreate", async (message) =>{
                 page = page+1;
                 let emb = new Discord.MessageEmbed().addFields({ name: '**Output: **'+ (page+1), value: `\`\`\`js\n${evaled.substring(page*1000,(page+1)*1000)}\`\`\``, inline: false })
                 
-                msga.edit({embeds:[emb]})
+                msga.edit({embeds:[emb]}).catch(a => {});
               };
             });
           });
-
-
-
-
   } catch (err) {
     message.channel.send({content:`\`Error\` \`\`\`xl\n${clean(err)}\n\`\`\``, components:[row]}).then(msga =>{
       const collector = msga.createMessageComponentCollector({ componentType: 'BUTTON', time: 60000 });
       collector.on('collect', async i => {
         if (i.user.id === message.author.id && i.customId == "deleted_"+rndm) {
           i.deferUpdate();
-          msga.delete();
-          let m = message.channel.messages.fetch(message.id);
-          if(m) message.delete();
+          msga.delete().catch(a => {});
+          message.delete().catch(a => {});
         }else return;
       });
     });
