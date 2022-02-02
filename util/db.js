@@ -56,7 +56,7 @@ class Database{
     }
 
     fetch(info){
-        this.get(info)
+        return this.get(info)
     }
 
     has(info){
