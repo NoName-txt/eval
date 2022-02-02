@@ -1,6 +1,10 @@
 # Discord Eval Bot
 Made by NoNametxt and sharing is prohibited.
 
+## Requirement
+
+1) Node.js v16 or higher.
+
 ## Setup
 
 1) Install packages with ```npm i```
