@@ -3,22 +3,15 @@ const data = require("../util/db.js");
 const db = new data();
 function getMention(mention,symbol) {
 	if (!mention) return;
-
 	if (mention.startsWith('<'+symbol) && mention.endsWith('>')) {
 		mention = mention.slice(2, -1);
-
-		if (mention.startsWith('!')) {
-			mention = mention.slice(1);
-		}
-
-		return mention;
-	}else{
+		if (mention.startsWith('!')) mention = mention.slice(1);
         return mention;
-    }
+	}else return mention;
 }
 
 exports.run = (client, message, args, lang) =>  {
-    if(message.author.id != client.owner) return;
+    if(client.conf.owner.includes(message.author.id)) return;
 
     if(args[0] == "add") {
         let usr = getMention(args[1],"@")
@@ -53,6 +46,8 @@ exports.run = (client, message, args, lang) =>  {
         .setDescription(`**Channel Changed** \n\n<#${chn}>`)
         .setFooter(message.author.tag,message.author.displayAvatarURL({dynamic:true}));
         return message.channel.send({ embeds: [emb] }).then(m => setTimeout(function(){m.delete()},5000));
+    }else{
+        message.channel.send(`Correct Use: ${client.conf.prefix}access <add, remove, channel>`)
     }
 };
 
