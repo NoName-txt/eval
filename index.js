@@ -9,18 +9,20 @@ const colors = require("./util/log.js");
 const log = (message,color) =>  colors.log(message,color);
 const betterLog = (message) =>  colors.betterLog(message);
 
-const token = "TOKEN"
-const prefix = "PREFIX"
+const token = "TOKEN";
+client.conf = {
+  prefix: "!",
+  owner: ["OWNER ID"]
+}
 
 client.on("ready", () => {
     log("Opened","cyan")
 });
 
-client.owner = "OWNER ID";
-
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
+
 client.on("messageCreate", async (message) =>{
   let access = db.get("access");
   let channel = db.get("channel");
@@ -43,7 +45,7 @@ client.on("messageCreate", async (message) =>{
       };
       var evaled = await eval(content);
       if (typeof evaled !== "string") evaled = require("util").inspect(evaled);
-      if(evaled.includes(token.slice(0,5)) || evaled.includes(token)) evaled = `\nToken Alert`;
+      if(evaled.includes(token.slice(0,5)) || evaled.includes(token)) evaled = `\nUwU Token`;
 
           let embed = new Discord.MessageEmbed().addFields({ name: '**Output: 1**', value: `\`\`\`js\n${evaled.substring(0,1000)}\`\`\``, inline: false })
 
@@ -105,8 +107,8 @@ client.on("messageCreate", async (message) =>{
 
 client.on("messageCreate", (message) =>{
     if (message.author.bot) return;
-    if (!message.content.startsWith(prefix)) return;
-    let command = message.content.split(" ")[0].slice(prefix.length);
+    if (!message.content.startsWith(client.conf.prefix)) return;
+    let command = message.content.split(" ")[0].slice(client.conf.prefix.length);
     let params = message.content.split(" ").slice(1);
     let cmd;
     if (client.commands.has(command)) {
