@@ -3,7 +3,7 @@ Made by NoNametxt and sharing is prohibited.
 
 ## Requirement
 
-1) Node.js v16 or higher.
+1) Node.js v16.x or higher.
 
 ## Setup
 
