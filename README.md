@@ -4,7 +4,7 @@ Made by NoNametxt and sharing is prohibited.
 ## Setup
 
 1) Install packages with ```npm i```
-2) Edit ```token```, ```prefix``` and ```client.owner``` in ```index.js```
+2) Edit ```token```, ```prefix``` and ```owner``` in ```index.js```
 3) Start bot with ```node index.js```
 
 ## Usage
