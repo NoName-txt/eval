@@ -11,7 +11,7 @@ function getMention(mention,symbol) {
 }
 
 exports.run = (client, message, args, lang) =>  {
-    if(client.conf.owner.includes(message.author.id)) return;
+    if(!client.conf.owner.includes(message.author.id)) return;
 
     if(args[0] == "add") {
         let usr = getMention(args[1],"@")
