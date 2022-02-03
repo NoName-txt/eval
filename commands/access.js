@@ -6,7 +6,7 @@ function getMention(mention,symbol) {
 	if (mention.startsWith('<'+symbol) && mention.endsWith('>')) {
 		mention = mention.slice(2, -1);
 		if (mention.startsWith('!')) mention = mention.slice(1);
-        return mention;
+       		return mention;
 	}else return mention;
 }
 
