@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const client = new Discord.Client({intents:32767});
 const fs = require("fs");
 
-const data = require("./util/db.js");
+const data = require("all.db");
 const db = new data();
 
 const colors = require("./util/log.js");
