@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const data = require("../util/db.js");
+const data = require("all.db");
 const db = new data();
 function getMention(mention,symbol) {
 	if (!mention) return;
